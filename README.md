@@ -139,7 +139,7 @@ AITV LMS is a full-featured mobile learning platform that demonstrates senior-le
 
 </div>
 
-> **[▶ Watch Demo Video]([YOUR_GOOGLE_DRIVE_LINK_HERE](https://drive.google.com/file/d/1z8ZlAdNPL5zKS-FYKGXsqnB2OGT093-E/view?usp=drivesdk))** — 3–5 minute walkthrough covering all features.
+> **[▶ Watch Demo Video](https://drive.google.com/file/d/1z8ZlAdNPL5zKS-FYKGXsqnB2OGT093-E/view?usp=drivesdk)** — 3–5 minute walkthrough covering all features.
 
 **What the demo covers:**
 1. Register a new account
