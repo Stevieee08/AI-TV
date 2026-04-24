@@ -133,8 +133,13 @@ AITV LMS is a full-featured mobile learning platform that demonstrates senior-le
 
 ## Demo Video
 
-> **[▶ Watch Demo Video](https://github.com/YOUR_USERNAME/aitv-lms/releases/latest)**  
-> Available in the GitHub Releases section — 3–5 minute walkthrough.
+<div align="center">
+
+[![Watch Demo](https://img.shields.io/badge/▶%20Watch%20Demo-Google%20Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](YOUR_GOOGLE_DRIVE_LINK_HERE)
+
+</div>
+
+> **[▶ Watch Demo Video]([YOUR_GOOGLE_DRIVE_LINK_HERE](https://drive.google.com/file/d/1z8ZlAdNPL5zKS-FYKGXsqnB2OGT093-E/view?usp=drivesdk))** — 3–5 minute walkthrough covering all features.
 
 **What the demo covers:**
 1. Register a new account
