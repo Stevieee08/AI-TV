@@ -9,9 +9,9 @@ export default function Index() {
     return null;
   }
   
-  // If authenticated, let the normal routing take over (don't redirect)
+  // If authenticated, redirect to tabs
   if (isAuthenticated) {
-    return null;
+    return <Redirect href="/(tabs)" />;
   }
   
   // Only redirect to login if not authenticated

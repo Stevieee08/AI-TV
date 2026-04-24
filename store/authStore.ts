@@ -47,8 +47,15 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   isLoading: true,
 
   login: async (email, password) => {
-    const response = await apiClient.post('/api/v1/users/login', { email, password });
-    const { user: apiUser, accessToken, refreshToken } = response.data.data;
+    try {
+      const response = await apiClient.post('/api/v1/users/login', { email, password });
+      console.log('Login API response:', response.data);
+      
+      if (!response.data || !response.data.data) {
+        throw new Error('Invalid response format from server');
+      }
+      
+      const { user: apiUser, accessToken, refreshToken } = response.data.data;
 
     // Get locally saved user data to preserve only profile updates (not username/email)
     const localUserData = await AsyncStorage.getItem(STORAGE_KEYS.USER_DATA);
@@ -82,6 +89,10 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const courseStore = useCourseStore.getState();
     await courseStore.loadPersistedData();
     courseStore.reapplyCourseStatus();
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   },
 
   register: async (username, email, password) => {
@@ -138,16 +149,22 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   restoreSession: async () => {
     try {
       const accessToken = await secureGet(STORAGE_KEYS.ACCESS_TOKEN);
+      const refreshToken = await secureGet(STORAGE_KEYS.REFRESH_TOKEN);
       const userData = await AsyncStorage.getItem(STORAGE_KEYS.USER_DATA);
       
-      if (accessToken && userData) {
+      console.log('Restore session - Token exists:', !!accessToken);
+      console.log('Restore session - Refresh token exists:', !!refreshToken);
+      console.log('Restore session - User data exists:', !!userData);
+      
+      // If we have user data and either token, try to restore session
+      if (userData && (accessToken || refreshToken)) {
         const user = JSON.parse(userData) as User;
         
         // If we have both token and user data, restore the session
         await AsyncStorage.setItem(STORAGE_KEYS.LAST_OPENED, new Date().toISOString());
         set({
           user,
-          tokens: { accessToken, refreshToken: '' },
+          tokens: { accessToken: accessToken || '', refreshToken: refreshToken || '' },
           isAuthenticated: true,
           isLoading: false,
         });

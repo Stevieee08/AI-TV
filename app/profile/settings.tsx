@@ -93,11 +93,19 @@ export default function SettingsScreen() {
     setSavingProfile(true);
     try {
       try {
+        console.log('PROFILE UPDATE - Sending username:', data.username);
         const res = await apiClient.patch('/api/v1/users/update-profile', { username: data.username });
+        console.log('PROFILE UPDATE - API Response:', res.data.data.user);
         updateUser(res.data.data.user);
-      } catch {
+        console.log('PROFILE UPDATE - Updated user in store');
+      } catch (apiError) {
+        console.log('PROFILE UPDATE - API Error, updating locally:', apiError);
         // For guest/offline: update locally in store + AsyncStorage
-        if (user) updateUser({ ...user, username: data.username });
+        if (user) {
+          const updatedUser = { ...user, username: data.username };
+          console.log('PROFILE UPDATE - Local update:', updatedUser);
+          updateUser(updatedUser);
+        }
       }
       Alert.alert('Updated', 'Username saved successfully.');
     } catch {
